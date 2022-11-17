@@ -1,21 +1,29 @@
-## Usage
+# UnstableFusion
+A Stable Diffusion desktop frontend with inpainting, img2img and more!
 
+https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-aa07-23df605b4807.mp4
 
-### Troubleshooting
+## Custom doc
+
+### Usage
+- enter a prompt 
+- in the square with transparent texture click and scroll the mouse wheel to determine image size.
+
+#### Troubleshooting
 If nothing happens when clicking on the generate button you should take a look at the output 
 
 Problem I encountered :
 
-#### Access to model is restricted and you are not in the authorized list.
+##### Access to model is restricted and you are not in the authorized list.
 ```shell
 Access to model runwayml/stable-diffusion-v1-5 is restricted and you are not in the authorized list. Visit https://huggingface.co/runwayml/stable-diffusion-v1-5 to ask for access.
 ```
 Easy fix => go to url and request access
 
 
-## Step-by-step installation to first-use (ubuntu 20) 
+### Step-by-step installation to first-use (ubuntu 20) 
 
-### Install pip3 if not present
+#### Install pip3 if not present
 ```shell
 sudo apt update
 sudo apt upgrade -y
@@ -25,13 +33,13 @@ sudo pip install --upgrade pip
 
 Close and reopen your shell
 
-### Check executable
+#### Check executable
 ```shell
 pip -V
 pip 22.3.1 from /usr/local/lib/python3.8/dist-packages/pip (python 3.8)
 ```
 
-### Install latest dependencies
+#### Install latest dependencies
 
 > Note : small diff from doc `pytorch` => `torch`
 
@@ -39,7 +47,7 @@ pip 22.3.1 from /usr/local/lib/python3.8/dist-packages/pip (python 3.8)
 python3 -m pip install --upgrade PyQt5 numpy torch Pillow opencv-python requests flask diffusers transformers protobuf qasync httpx
 ```
 
-### Try to run
+#### Try to run
 ```
 git clone REPO_URL (i encourage you to fork)
 cd LOCAL_REPO_PATH
@@ -50,7 +58,7 @@ If it work congratulations !
 Else here are the 3 troubleshooting I encountered
 
 
-#### Troubleshooting 1 (linux `Could not load the Qt platform plugin "xcb"`) :
+##### Troubleshooting 1 (linux `Could not load the Qt platform plugin "xcb"`) :
  error, run this:
 ```
 pip uninstall opencv-python     (solve a xcb compatibility issue)
@@ -67,12 +75,7 @@ I needed to install one more dependency
 ```
 sudo apt-get install libxcb-xinerama0
 ```
-##### Fix 1
-I needed to install one more dependency
 
-```
-sudo apt-get install libxcb-xinerama0
-```
 ##### Troubleshooting 3 (linux under WSL) The problem may be that you do not yet have a way to run GUI apps.
 Follow https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242 to install and configure VcXsrv Windows X Server.
 
@@ -109,7 +112,7 @@ sudo apt-get install x11-apps
 xclock
 ```
 
-###### Run the GUI
+##### Run the GUI
 ```
 cd LOCAL_REPO_PATH
 python3 unstablefusion.py
@@ -119,12 +122,7 @@ python3 unstablefusion.py
 
 Success ! :D
 
-# Original Documentation
-
-# UnstableFusion
-A Stable Diffusion desktop frontend with inpainting, img2img and more!
-
-https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-aa07-23df605b4807.mp4
+## Original Documentation
 
 ## How to run locally?
 1. Install the dependencies (for example using `pip`). The dependencies include :
