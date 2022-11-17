@@ -3,6 +3,32 @@ A Stable Diffusion desktop frontend with inpainting, img2img and more!
 
 https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-aa07-23df605b4807.mp4
 
+## Step-by-step on an ubuntu 20 
+
+### Install pip3 if not present
+```shell
+sudo apt update
+sudo apt upgrade -y
+sudo apt install python3-pip -y
+```
+
+### Check executable
+```shell
+pip -V
+> pip 20.0.2 from /usr/lib/python3/dist-packages/pip (python 3.8)
+```
+
+### Install dependencies
+
+> Note : small diff from doc `pytorch` => `torch`
+
+``` shell
+ pip install PyQt5 numpy torch Pillow opencv-python requests flask diffusers transformers protobuf
+```
+
+
+
+
 ## How to run locally?
 1. Install the dependencies (for example using `pip`). The dependencies include :
 * `PyQt5`, `numpy`, `pytorch`, `Pillow`, `opencv-python`, `requests`, `flask`, `diffusers`, `transformers`, `protobuf`
