@@ -3,7 +3,7 @@ A Stable Diffusion desktop frontend with inpainting, img2img and more!
 
 https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-aa07-23df605b4807.mp4
 
-## Step-by-step on an ubuntu 20 
+## Step-by-step installation to first-use (ubuntu 20) 
 
 ### Install pip3 if not present
 ```shell
@@ -25,6 +25,13 @@ pip -V
 ``` shell
  pip install PyQt5 numpy torch Pillow opencv-python requests flask diffusers transformers protobuf
 ```
+
+### Install HuggingFace hub
+
+```
+pip install huggingface_hub
+```
+
 
 
 
