@@ -1,7 +1,17 @@
-# UnstableFusion
-A Stable Diffusion desktop frontend with inpainting, img2img and more!
+## Usage
 
-https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-aa07-23df605b4807.mp4
+
+### Troubleshooting
+If nothing happens when clicking on the generate button you should take a look at the output 
+
+Problem I encountered :
+
+#### Access to model is restricted and you are not in the authorized list.
+```shell
+Access to model runwayml/stable-diffusion-v1-5 is restricted and you are not in the authorized list. Visit https://huggingface.co/runwayml/stable-diffusion-v1-5 to ask for access.
+```
+Easy fix => go to url and request access
+
 
 ## Step-by-step installation to first-use (ubuntu 20) 
 
@@ -10,31 +20,111 @@ https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-a
 sudo apt update
 sudo apt upgrade -y
 sudo apt install python3-pip -y
+sudo pip install --upgrade pip
 ```
+
+Close and reopen your shell
 
 ### Check executable
 ```shell
 pip -V
-> pip 20.0.2 from /usr/lib/python3/dist-packages/pip (python 3.8)
+pip 22.3.1 from /usr/local/lib/python3.8/dist-packages/pip (python 3.8)
 ```
 
-### Install dependencies
+### Install latest dependencies
 
 > Note : small diff from doc `pytorch` => `torch`
 
 ``` shell
- pip install PyQt5 numpy torch Pillow opencv-python requests flask diffusers transformers protobuf
+python3 -m pip install --upgrade PyQt5 numpy torch Pillow opencv-python requests flask diffusers transformers protobuf qasync httpx
 ```
 
-### Install HuggingFace hub
+### Try to run
+```
+git clone REPO_URL (i encourage you to fork)
+cd LOCAL_REPO_PATH
+python3 unstablefusion.py
+```
+
+If it work congratulations !
+Else here are the 3 troubleshooting I encountered
+
+
+#### Troubleshooting 1 (linux `Could not load the Qt platform plugin "xcb"`) :
+ error, run this:
+```
+pip uninstall opencv-python     (solve a xcb compatibility issue)
+pip install opencv-python-headless     (solve a xcb compatibility issue)
+```
+
+Close shell and retry
+
+You may have a similar looking error but a bit more precise, see next step
+
+##### Troubleshooting 2 (linux `Could not load the Qt platform plugin "xcb" in "" even though it was found.`)
+I needed to install one more dependency
 
 ```
-pip install huggingface_hub
+sudo apt-get install libxcb-xinerama0
+```
+##### Fix 1
+I needed to install one more dependency
+
+```
+sudo apt-get install libxcb-xinerama0
+```
+##### Troubleshooting 3 (linux under WSL) The problem may be that you do not yet have a way to run GUI apps.
+Follow https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242 to install and configure VcXsrv Windows X Server.
+
+###### Follow the tutorial (option 1) to install  VcXsrv Windows X Server
+- Follow the configuration as described
+
+- After running and configuring you should see the server running in your taskbar
+
+![image](https://user-images.githubusercontent.com/1665550/202497111-deb254a7-1b66-44c7-87cf-8376f979a243.png)
+
+
+###### Add in the shell config (~/.bashrc | ~/.zshrc ) the DISPLAY var
+
+```vim
+# DISPLAY var for vcXsrv
+export DISPLAY=$(ip route|awk '/^default/{print $3}'):0.0
 ```
 
+###### Add a ~/.xsession file in home
+```
+echo xfce4-session > ~/.xsession
+```
 
+Close and reopen your shell and the following command should give you your host machine ip
 
+``` shell
+echo $DISPLAY
+> 172.27.117.1:0.0 (may be different)
+```
 
+###### you can easily check that the server works by launching small gui app such as xclock
+```
+sudo apt-get install x11-apps
+xclock
+```
+
+###### Run the GUI
+```
+cd LOCAL_REPO_PATH
+python3 unstablefusion.py
+```
+
+![image](https://user-images.githubusercontent.com/1665550/202498582-65ad47b4-a4a5-4d14-ab3c-144185915c52.png)
+
+Success ! :D
+
+# Original Documentation
+
+# UnstableFusion
+A Stable Diffusion desktop frontend with inpainting, img2img and more!
+
+https://user-images.githubusercontent.com/6392321/191858568-0550f52d-e89c-4b37-aa07-23df605b4807.mp4
 
 ## How to run locally?
 1. Install the dependencies (for example using `pip`). The dependencies include :
@@ -45,11 +135,6 @@ Note that if you want to run StableDiffusion on Windows locally, use requirement
 pip install -r requirements-localgpu-win64.txt
 ```
 
-Note: On linux, if you encounter `Could not load the Qt platform plugin "xcb"` error, run this:
-```
-pip uninstall opencv-python     (solve a xcb compatibility issue)
-pip install opencv-python-headless     (solve a xcb compatibility issue)
-```
 
 2. Create a huggingface account and an [access token](https://huggingface.co/settings/tokens), if you haven't done so already.
 Request access to the StableDiffusion model at [CompVis/stable-diffusion-v1-4](https://huggingface.co/CompVis/stable-diffusion-v1-4).
